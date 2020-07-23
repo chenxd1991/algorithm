@@ -31,6 +31,7 @@ public class SparseArray {
     }
 
     public static int[][] toSparserArray(int[][] arr) {
+        // 第一步计算不同数据的个数
         int sum = 0;
         for (int[] ints : arr) {
             for (int anInt : ints) {
@@ -39,11 +40,14 @@ public class SparseArray {
                 }
             }
         }
+        // 第二步创建二维数组
         int[][] sparseArr = new int[sum + 1][3];
+        // 第三部填充稀疏数组
         sparseArr[0][0] = arr.length;
         sparseArr[0][1] = arr[0].length;
         sparseArr[0][2] = sum;
-        int count = 0;// 记录非0数据的行数
+        // 记录非0数据的行数
+        int count = 0;
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
                 if (arr[i][j] != 0) {
