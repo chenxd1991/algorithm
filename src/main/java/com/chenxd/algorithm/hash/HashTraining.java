@@ -149,7 +149,9 @@ public class HashTraining {
     }
 
     public static void main(String[] args) {
-        System.out.println(uniqueOccurrences(new int[]{-3,0,1,-3,1,1,1,-3,10,0}));
+        System.out.println(Double.toHexString(0.25));
+        System.out.println(Double.toHexString(0.26));
+
     }
 }
 
