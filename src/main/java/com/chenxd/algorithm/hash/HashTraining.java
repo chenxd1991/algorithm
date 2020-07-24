@@ -210,7 +210,6 @@ public class HashTraining {
         System.out.println(addDigits(38));
     }
 }
-
 class Codec {
     private Map<Integer, String> map = new HashMap<>();
 
