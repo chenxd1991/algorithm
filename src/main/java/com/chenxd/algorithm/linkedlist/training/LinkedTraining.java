@@ -215,13 +215,30 @@ public class LinkedTraining {
         return slow;
     }
 
+    /**
+     * 返回倒数k节点
+     * 双指针 快指针先走k，然后快慢指针一起走，当快指针走完慢指针所在的位置即为倒数k节点
+     */
+    public static int kthToLast(ListNode head, int k) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (k > 0) {
+            fast = fast.next;
+            k--;
+        }
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow.val;
+    }
+
     public static void main(String[] args) {
         ListNode listNode = new ListNode(1);
         listNode.addAtTail(2);
         listNode.addAtTail(3);
         listNode.addAtTail(4);
         listNode.addAtTail(5);
-//        listNode.addAtTail(6);
-        middleNode(listNode);
+        System.out.println(kthToLast(listNode, 2));
     }
 }
