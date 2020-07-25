@@ -3,7 +3,9 @@ package com.chenxd.algorithm.bit;
 import com.chenxd.algorithm.linkedlist.ListNode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author create by xiaodong.chen
@@ -97,10 +99,58 @@ public class BitManipulationClient {
         return num;
     }
 
+    public static int[] countBits(int num) {
+        int[] arr = new int[num + 1];
+        for (int i = 0; i <= num; i++) {
+            int temp = i;
+            temp = temp - ((i >>> 1) & 0x55555555);
+            temp = (temp & 0x33333333) + ((temp >>> 2) & 0x33333333);
+            temp = (temp + (temp >>> 4)) & 0x0f0f0f0f;
+            temp = temp + (temp >>> 8);
+            temp = temp + (temp >>> 16);
+            arr[i] = temp & 0x3f;
+        }
+        return arr;
+    }
+
+    /**
+     * 给定一个整数数组 nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。
+     * 示例 :
+     * 输入: [1,2,1,3,2,5]
+     * 输出: [3,5]
+     */
+    public static int[] singleNumber(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        List<Integer> list = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                list.add(entry.getKey());
+            }
+        }
+        return list.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    /**
+     * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+     * 说明：
+     * 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+     * 示例 1:
+     * 输入: [2,2,1]
+     * 输出: 1
+     */
+    public static int singleNumber1(int[] nums) {
+        int res = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            res ^= nums[i];
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
-        ListNode listNode = new ListNode(1);
-        listNode.addAtTail(0);
-        listNode.addAtTail(1);
-        System.out.println(getDecimalValue(listNode));
+        System.out.println(2^2^1);
+        System.out.println(singleNumber1(new int[]{2, 2, 1}));
     }
 }
