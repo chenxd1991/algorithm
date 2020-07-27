@@ -1,9 +1,15 @@
 package com.chenxd.algorithm.offer;
 
 import com.chenxd.algorithm.linkedlist.ListNode;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -157,7 +163,82 @@ public class OfferTraining {
         return pre;
     }
 
+    /**
+     * 输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。
+     * 示例1：
+     * 输入：1->2->4, 1->3->4
+     * 输出：1->1->2->3->4->4
+     */
+//    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+//        LinkedList<Integer> list = new LinkedList<>();
+//        while (l1 != null) {
+//            list.add(l1.val);
+//            l1 = l1.next;
+//        }
+//        while (l2 != null) {
+//            list.add(l2.val);
+//            l2 = l2.next;
+//        }
+//        Collections.sort(list);
+//        ListNode listNode = null;
+//        for (Integer integer : list) {
+//            if (listNode == null) {
+//                listNode = new ListNode(integer);
+//                continue;
+//            }
+//            ListNode temp = listNode;
+//            while (temp.next != null) {
+//                temp = temp.next;
+//            }
+//            temp.next = new ListNode(integer);
+//        }
+//        return listNode;
+//    }
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+
+        LinkedList<Integer> list = new LinkedList<>();
+        while (l1 != null || l2 != null) {
+            if (l1 != null) {
+                list.add(l1.val);
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                list.add(l2.val);
+                l2 = l2.next;
+            }
+
+        }
+        Collections.sort(list);
+        ListNode listNode = null;
+        for (Integer integer : list) {
+            if (listNode == null) {
+                listNode = new ListNode(integer);
+                continue;
+            }
+            ListNode temp = listNode;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = new ListNode(integer);
+        }
+        return listNode;
+    }
+
+    /**
+     * 一个整型数组 nums 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是O(n)，空间复杂度是O(1)。
+     * 示例 1：
+     * 输入：nums = [4,1,4,6]
+     * 输出：[1,6] 或 [6,1]
+     * 示例 2：
+     * 输入：nums = [1,2,10,4,1,4,3,3]
+     * 输出：[2,10] 或 [10,2]
+     */
+    public static int[] singleNumbers(int[] nums) {
+        int[] arr = new int[2];
+
+        return arr;
+    }
     public static void main(String[] args) {
-        LinkedList linkedList = new LinkedList();
+        Deque<Integer> deque = new LinkedList<>();
     }
 }
