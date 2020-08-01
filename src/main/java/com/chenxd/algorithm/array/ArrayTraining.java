@@ -2,7 +2,9 @@ package com.chenxd.algorithm.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author create by xiaodong.chen
@@ -301,7 +303,132 @@ public class ArrayTraining {
 //        return (nums[nums.length-1]-1)*(nums[nums.length-2]-1);
 //    }
 
+    /**
+     * 给定一个整数数组 a，其中1 ≤ a[i] ≤ n （n为数组长度）, 其中有些元素出现两次而其他元素出现一次。
+     * 找到所有出现两次的元素。
+     * 你可以不用到任何额外空间并在O(n)时间复杂度内解决这个问题吗？
+     * 示例：
+     * 输入:
+     * [4,3,2,7,8,2,3,1]
+     * 输出:
+     * [2,3]
+     */
+//    public static List<Integer> findDuplicates(int[] nums) {
+//        List<Integer> list = new ArrayList<>();
+//        Set<Integer> set = new HashSet<>();
+//        for (int num : nums) {
+//            if(!set.add(num)){
+//                list.add(num);
+//            }
+//        }
+//        return list;
+//    }
+    public static List<Integer> findDuplicates(int[] nums) {
+        List<Integer> result = new ArrayList<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int index = Math.abs(nums[i]) - 1;
+
+            if (nums[index] < 0) {
+                result.add(Math.abs(nums[i]));
+                continue;
+            }
+
+            nums[index] = -nums[index];
+        }
+
+        return result;
+    }
+
+    /**
+     * 数组nums包含从0到n的所有整数，但其中缺了一个。请编写代码找出那个缺失的整数。你有办法在O(n)时间内完成吗？
+     * 注意：本题相对书上原题稍作改动
+     * 示例 1：
+     * 输入：[3,0,1]
+     * 输出：2
+     * 示例 2：
+     * 输入：[9,6,4,2,3,5,7,0,1]
+     * 输出：8
+     */
+    public static int missingNumber(int[] nums) {
+        int a = 0;
+        int b = 0;
+        for (int i = 0; i < nums.length; i++) {
+            a += nums[i];
+            b += i;
+        }
+        b += nums.length;
+        return b - a;
+    }
+
+    /**
+     * 给你一个 m * n 的矩阵 grid，矩阵中的元素无论是按行还是按列，都以非递增顺序排列。 
+     * 请你统计并返回 grid 中 负数 的数目。
+     * 示例 1：
+     * 输入：grid = [[4,3,2,-1],[3,2,1,-1],[1,1,-1,-2],[-1,-1,-2,-3]]
+     * 输出：8
+     * 解释：矩阵中共有 8 个负数。
+     */
+//    public static int countNegatives(int[][] grid) {
+//
+//    }
+
+    /**
+     * 给你一个字符串 s 和一个 长度相同 的整数数组 indices 。
+     * 请你重新排列字符串 s ，其中第 i 个字符需要移动到 indices[i] 指示的位置。
+     * 返回重新排列后的字符串。
+     * 输入：s = "codeleet", indices = [4,5,6,7,0,2,1,3]
+     * 输出："leetcode"
+     */
+    public static String restoreString(String s, int[] indices) {
+        char[] chars = s.toCharArray();
+        char[] newChars = new char[chars.length];
+        for (int i = 0; i < chars.length; i++) {
+            newChars[indices[i]] = chars[i];
+        }
+        return String.valueOf(newChars);
+    }
+
+    /**
+     * 给你一个数字数组 arr 。
+     * 如果一个数列中，任意相邻两项的差总等于同一个常数，那么这个数列就称为 等差数列 。
+     * 如果可以重新排列数组形成等差数列，请返回 true ；否则，返回 false 。
+     * 示例 1：
+     * 输入：arr = [3,5,1]
+     * 输出：true
+     * 解释：对数组重新排序得到 [1,3,5] 或者 [5,3,1] ，任意相邻两项的差分别为 2 或 -2 ，可以形成等差数列。
+     */
+    public static boolean canMakeArithmeticProgression(int[] arr) {
+        if (arr.length < 2) {
+            return false;
+        }
+        Arrays.sort(arr);
+        int con = arr[0] - arr[1];
+        for (int i = 1; i < arr.length - 1; i++) {
+            if (arr[i] - arr[i + 1] != con) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 给你一个整数 n，请你返回 任意 一个由 n 个 各不相同 的整数组成的数组，并且这 n 个数相加和为 0 。
+     * 示例 1：
+     * 输入：n = 5
+     * 输出：[-7,-1,1,3,4]
+     * 解释：这些数组也是正确的 [-5,-1,1,2,3]，[-3,-1,2,-2,4]。
+     */
+    public static int[] sumZero(int n) {
+        int[] arr = new int[n];
+        for (int i = 0; i < n / 2; i++) {
+            arr[i] = i + 1;
+            arr[n - i - 1] = -arr[i];
+        }
+        return arr;
+    }
+
     public static void main(String[] args) {
-        subsets(new int[]{1, 2, 3});
+        System.out.println(sumZero(0));
     }
 }

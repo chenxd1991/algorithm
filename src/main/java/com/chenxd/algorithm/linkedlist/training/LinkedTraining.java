@@ -2,7 +2,10 @@ package com.chenxd.algorithm.linkedlist.training;
 
 import com.chenxd.algorithm.linkedlist.ListNode;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -233,12 +236,33 @@ public class LinkedTraining {
         return slow.val;
     }
 
+    /**
+     * 在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。
+     * 示例 1:
+     * 输入: 4->2->1->3
+     * 输出: 1->2->3->4
+     * 示例 2:
+     * 输入: -1->5->3->4->0
+     * 输出: -1->0->3->4->5
+     */
+    public static ListNode sortList(ListNode head) {
+        ListNode temp = head;
+        while (temp != null) {
+            while (temp.next!=null && temp.val>temp.next.val){
+
+                temp.next = temp.next.next;
+            }
+            temp = temp.next;
+        }
+
+        return head;
+    }
+
     public static void main(String[] args) {
-        ListNode listNode = new ListNode(1);
+        ListNode listNode = new ListNode(4);
         listNode.addAtTail(2);
+        listNode.addAtTail(1);
         listNode.addAtTail(3);
-        listNode.addAtTail(4);
-        listNode.addAtTail(5);
-        System.out.println(kthToLast(listNode, 2));
+        System.out.println(sortList(listNode));
     }
 }

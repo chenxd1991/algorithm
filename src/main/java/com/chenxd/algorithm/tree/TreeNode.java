@@ -1,6 +1,7 @@
 package com.chenxd.algorithm.tree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -12,11 +13,11 @@ import java.util.Stack;
  * @description
  */
 public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
 
-    TreeNode(int x) {
+    public TreeNode(int x) {
         this.val = x;
     }
 }
@@ -153,13 +154,39 @@ class TestTree {
      * 输出：[4,7,2,9,6,3,1]
      */
     public static TreeNode mirrorTree(TreeNode root) {
-        if(root == null){
+        if (root == null) {
             return root;
         }
         TreeNode temp = root.left;
         root.left = mirrorTree(root.right);
         root.right = mirrorTree(temp);
         return root;
+    }
+
+    public static TreeNode sortedArrayToBST(int[] nums) {
+        TreeNode root = new TreeNode(nums[(nums.length / 2)]);
+        root.left = sortedArrayToBST(Arrays.copyOfRange(nums, 0, nums.length / 2));
+        root.right = sortedArrayToBST(Arrays.copyOfRange(nums, nums.length / 2 + 1, nums.length));
+        return root;
+    }
+
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode temp = root.left;
+        root.left = invertTree(root.right);
+        root.right = invertTree(temp);
+        return root;
+    }
+
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        return left > right ? left + 1 : right + 1;
     }
 
     /**
